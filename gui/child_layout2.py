@@ -8,6 +8,8 @@ import database_manager as db
 import file_system_manager as fm 
 import system_updater as su 
 
+import cv2
+
 LAYER2_SIZE = (400, 600)
 LAYER2_EDITOR_SIZE = (300, 50)
 
@@ -200,6 +202,9 @@ class ImageBoard(qtw.QScrollArea):
 		count = 0
 		for imageInfo in images_info:			
 			path = fm.write_temp_image(imageInfo[1])
+			# cv2.imshow("hello", imageInfo[1])
+			# cv2.waitKey(0)
+			# cv2.destroyWindow("hello")
 			if (len(self.images) <= count):
 				image = Image(self, count)
 				self.images.append(image)

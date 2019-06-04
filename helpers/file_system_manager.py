@@ -1,4 +1,4 @@
-from cv2 import imwrite, imread, IMREAD_GRAYSCALE, resize, imshow, waitKey
+from cv2 import imwrite, imread, IMREAD_GRAYSCALE, resize, imshow, waitKey, flip
 
 import os
 import csv
@@ -120,10 +120,10 @@ def write_facial_image_to_file(personId = -1, image = None):
 	directory = (IMAGE_PATH + '/facial_images/person_%s') % personId
 	imageId = 0
 
+	maxId = -1		
 	if not (os.path.isdir(directory)):
 		os.mkdir(directory)
 	else:
-		maxId = -1		
 		files = os.scandir(directory)
 		for file in files:
 			fileName = file.path.split('/')[-1]
@@ -132,8 +132,8 @@ def write_facial_image_to_file(personId = -1, image = None):
 			if (maxId < imageId):
 				maxId = imageId
 
-		imageId = maxId + 1
-	imwrite(((directory + "/%s.bmp") % imageId), image)
+	imwrite(((directory + "/%s.bmp") % (maxId + 1)), image)
+	imwrite(((directory + "/%s.bmp") % (maxId + 2)), flip(image, 1))
 
 def read_test_image(name, directory = IMAGE_PATH + "/test_images/"):
 	return imread(directory + name, IMREAD_GRAYSCALE)
@@ -155,7 +155,7 @@ def read_image(file_path):
 
 def write_temp_image(image, directory = None):
 	if (directory is None):
-		directory = IMAGE_PATH + "/temp.bmp"
+		directory = IMAGE_PATH + "/temp.jpg"
 
 	imwrite(directory, image)
 	return directory

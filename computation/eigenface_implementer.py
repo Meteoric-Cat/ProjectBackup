@@ -4,9 +4,9 @@ import numpy as np
 import sys
 
 #run when updating the system
-def add_paths():
-	sys.path.insert(0, './temp')
-add_paths()
+# def add_paths():
+# 	sys.path.insert(0, './temp')
+# add_paths()
 
 
 import file_system_manager as fm

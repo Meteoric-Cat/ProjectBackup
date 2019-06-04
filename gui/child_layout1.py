@@ -48,7 +48,7 @@ class ChildLayout1(qtw.QWidget):
 
 	@qtcore.Slot()
 	def handle_recognization_button(self):
-		fileName = qtw.QFileDialog.getOpenFileName(None, self.tr("Choose Image"), "./input")[0]
+		fileName = qtw.QFileDialog.getOpenFileName(None, self.tr("Choose Image"), "./input/lfw/AGOODIMAGES")[0]
 		#self.parent.display_image(fileName)
 
 		fileName = fl.detect_and_recognize_faces(fileName, self.parent.dataReference)

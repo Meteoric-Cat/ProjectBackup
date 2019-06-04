@@ -217,9 +217,9 @@ def get_faces_base_on_eye_pairs(system_data, image, region_info, region_skin_ima
 			dist_threshold = system_data.detectionThreshold)
 
 		print("DETECTION DIST", dist)
-		cv2.imshow("value", tempImage)
-		cv2.waitKey(0)
-		cv2.destroyWindow("value")
+		# cv2.imshow("value", tempImage)
+		# cv2.waitKey(0)
+		# cv2.destroyWindow("value")
 
 		if (check):
 			# if (dist < minDist):
