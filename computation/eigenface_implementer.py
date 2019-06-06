@@ -62,9 +62,10 @@ def recognize_face(image, mean = None, eigenfaces = None,
 
 	min_dist = 1000000000
 	personId = -1
-	
+	#print(index_list)
 	for index in index_list:
 		dist = ut.euclid_dist(subspace_image_weights[index], projectionResult)		
+		# print("RECOGNITION DIST", dist)
 		if (dist < min_dist):
 			min_dist = dist
 			personId = subspace_images[index].OwnerId

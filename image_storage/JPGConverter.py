@@ -31,7 +31,16 @@ def remove_jpg():
 			if (file.path[-3:] == "jpg"):
 				os.remove(file.path)
 
+def image_count():
+	folders = os.scandir(FACIAL_IMAGES)
+	count = 0
+	for folder in folders:
+		files = os.scandir(folder.path)
+		for file in files:
+			count += 1
+	print(count)
+
 if (__name__ == "__main__"):
-	remove_jpg()
+	image_count()
 	# convert_mean()
 	# convert_faces()

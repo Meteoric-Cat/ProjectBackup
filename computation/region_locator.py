@@ -90,7 +90,7 @@ def find_possible_eye_blocks(image, m, n, tempX, tempY, possible_eye_info,
 
 	return result
 
-def match_eyes(image, m, n, possible_eye_info, pair_size_error = 20, dist_ratio = (0.2, 0.65)):
+def match_eyes(image, m, n, possible_eye_info, pair_size_error = 10, dist_ratio = (0.2, 0.65)):
 	infoLength = len(possible_eye_info)
 	temp = range(0, infoLength)
 	result = []
@@ -174,6 +174,9 @@ def split_to_get_face(image, pivot, dist, ratio = CLIPPING_RATIO, output_size = 
 	left = int(max(0, (pivot[0] + ratio[2] * dist)))
 	right = int(min(n - 1, (pivot[0] + ratio[3] * dist)))
 	
+	if (abs(top - bottom) < 80 or abs(left - right) < 80):
+		return None
+
 	tempImage = image[top:bottom, left:right]
 	tempImage = cv2.resize(tempImage, output_size)
 
@@ -213,6 +216,8 @@ def get_faces_base_on_eye_pairs(system_data, image, region_info, region_skin_ima
 		tempImage = cv2.warpAffine(tempImage, mat, tempImage.shape[1::-1])
 
 		tempImage = split_to_get_face(tempImage, pivot, ut.distance_between_points(centroid1, centroid2))
+		if (tempImage is None):
+			continue			
 		check, dist = pca.detect_face(tempImage, system_data.mean, system_data.eigenfaces, 
 			dist_threshold = system_data.detectionThreshold)
 
@@ -266,7 +271,7 @@ def get_possible_faces(mode, system_data, image, m, n, tempX, tempY):
 	result = []	
 	image = image.astype(np.uint8)
 	grayscaleImage = cv2.cvtColor(image.copy(), cv2.COLOR_RGB2GRAY)
-	indexList = range(0, system_data.eigenfaceCount)
+	indexList = range(0, len(system_data.subspaceImages))
 
 	for region in regionInfo:
 		tempSkinImage = skinMap[region[0]:region[2], region[1]:region[3]].copy()
@@ -339,7 +344,10 @@ def detect_and_recognize_faces(file_name, system_data):
 			(0, 255, 0), 2)
 		if (face[0] == -1):
 			face[0] = "unknown"
-		cv2.putText(image, str(face[0]), (region[1], region[0] + 25), cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2)
+		else:
+			person = db.get_people(False, face[0])
+			face[0] = person[0].Name
+		cv2.putText(image, str(face[0]), (region[1], region[0] + 15), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2)
 
 	return fm.write_temp_image(image)
 

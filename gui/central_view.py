@@ -119,7 +119,7 @@ class CentralView(qtw.QHBoxLayout):
 		self.personDialog.show()
 
 	def handle_system_updating(self):		
-		fileName = qtw.QFileDialog.getOpenFileName(None, self.tr("Choose Image"), "./input/lfw/AGOODIMAGES")[0]
+		fileName = qtw.QFileDialog.getOpenFileName(None, self.tr("Choose Image"), "./input")[0]
 		facesInfo = fl.detect_faces_to_update_system(fileName, self.dataReference)
 
 		if (facesInfo is None):

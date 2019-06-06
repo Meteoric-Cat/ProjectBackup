@@ -68,7 +68,7 @@ class ChildLayout2(qtw.QWidget):
 		# self.layout1.setAlignment(self.detectionDistLabel, qtcore.Qt.AlignTop)
 
 		self.recognizationDistLabel = qtw.QLabel()
-		self.recognizationDistLabel.setText("Recognization dist")
+		self.recognizationDistLabel.setText("Recognition dist")
 		self.layout1.addWidget(self.recognizationDistLabel)
 		self.layout1.setAlignment(self.recognizationDistLabel, qtcore.Qt.AlignHCenter | qtcore.Qt.AlignVCenter)
 		# self.layout1.setAlignment(self.recognizationDistLabel, qtcore.Qt.AlignTop)
@@ -151,7 +151,7 @@ class ChildLayout2(qtw.QWidget):
 			self.display_owner_data(self.facesInfo[imageId][0])
 
 		self.detectionDistLabel.setText("Detection dist:" + str(self.facesInfo[imageId][2]))
-		self.recognizationDistLabel.setText("Recognization dist:" + str(self.facesInfo[imageId][3]))
+		self.recognizationDistLabel.setText("Recognition dist:" + str(self.facesInfo[imageId][3]))
 
 	def display_owner_data(self, owner_id):
 		if (owner_id <= 0):
