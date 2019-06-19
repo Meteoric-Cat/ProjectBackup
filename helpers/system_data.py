@@ -13,7 +13,7 @@ class RunningSystemData():
 		self.subspaceImages = db.get_subspace_images()
 		self.subspaceImageWeights = dbut.aggregate_subspaceimage_weights(self.subspaceImages)
 
-		self.detectionThreshold = 3500
+		self.detectionThreshold = 3000
 		self.recognizationThreshold = 3600
 
 	def update(self, mean, eigenfaces):
